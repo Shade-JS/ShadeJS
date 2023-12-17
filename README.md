@@ -19,7 +19,7 @@ class MyCounter extends HTMLElement {
         }
     `
 
-    render = ({title, count}) => html`
+    template = ({title, count}) => html`
         <div>
             <h1>${title}</h1>
             <p>${count}</p>
