@@ -107,8 +107,6 @@ const requestHandler = (req, res) => {
 
     const file = rewrite(pathname, ext, context)
 
-		
-
     if (!file) {
         return NotFound404(req, res)
     }

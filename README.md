@@ -1,4 +1,8 @@
-# ShadeJS
+# ShadeJS  🌴
+
+> Modular JavaScript SPA framework built on closed-shadow Web Components.
+
+- 
 
 https://dev.to/f1lt3r/build-a-spa-framework-1-4jld
 

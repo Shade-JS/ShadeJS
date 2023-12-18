@@ -1,0 +1,19 @@
+
+{
+  "name": "@shadejs/shadejs",
+  "version": "0.1.0",
+  "description": " Modular JavaScript SPA framework built on closed-shadow Web Components",
+  "main": "index.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "spa",
+    "framework",
+    "web components",
+    "modular",
+    "javascript"
+  ],
+  "author": "F1L3R",
+  "license": "ISC"
+}
