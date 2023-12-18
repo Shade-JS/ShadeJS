@@ -31,13 +31,13 @@ const rewritePaths = (pathname, context) => {
 
 	console.log({pathname, rel:relative(pathname)})
 
-	if (relative(pathname)) {
-		const rel = path.relative(pathname, context)
-		console.log({rel});
-		const contextualStack = rewriteStack.forEach(pathname => `${context}${pathname}`)
-		const sanitized = removeDupeSlashes(contextualStack)
-		return sanitized
-	}
+	// if (relative(pathname)) {
+	// 	const rel = path.relative(pathname, context)
+	// 	console.log({rel});
+	// 	const contextualStack = rewriteStack.forEach(pathname => `${context}${pathname}`)
+	// 	const sanitized = removeDupeSlashes(contextualStack)
+	// 	return sanitized
+	// }
 
 	const sanitized = removeDupeSlashes(rewriteStack)
 	return sanitized
@@ -93,7 +93,7 @@ const CouldNotStream = (req, res) => {
     console.error(`505: ${req.url}`)
     res.write('500 Internal Server Error')
     res.end()
-    }
+}
 
 const requestHandler = (req, res) => {
 
@@ -107,11 +107,24 @@ const requestHandler = (req, res) => {
 
     const file = rewrite(pathname, ext, context)
 
-		
+	console.log({file})
 
     if (!file) {
         return NotFound404(req, res)
     }
+
+	console.log({pathname: pathname, rel: path.relative(WEB_DIR, file.location)})
+	if (pathname.slice(1) !==  path.relative(WEB_DIR, file.location)) {
+		const rel =  path.relative(WEB_DIR, file.location);
+		console.log({rel});
+		// console.log(file.location)
+		res.writeHead(301, {
+			Location: `http://localhost:${PORT}/${rel}`
+		})
+		res.write('301 Moved Permanently')
+		res.end()
+		return
+	}
 
     console.log(`REQUEST: ${pathname}`)
 	console.log(`SERVING: ${file.location}`)
