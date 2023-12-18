@@ -14,35 +14,16 @@ const headers = {
 	'.css': 'text/css',
 }
 
+const removeDoubleSlashes = (url) => url.map(url => url.replace(/(^\/)\/+/g, "$1"))
 
-const removeDupeSlashes = (url) => url.map(url => url.replace(/(^\/)\/+/g, "$1"))
-
-const relative = url => url[0] !== '/'
-
-const rewritePaths = (pathname, context) => {
-	const rewriteStack = [
+const rewritePaths = (pathname, context) => removeDoubleSlashes([
 		`${pathname}/index.html`,
 		`${pathname}.html`,
 		`${pathname}.mjs`,
 		`${pathname}/index.mjs`,
 		`${pathname}.css`,
 		`${pathname}/index.css`,
-	]
-
-	console.log({pathname, rel:relative(pathname)})
-
-	// if (relative(pathname)) {
-	// 	const rel = path.relative(pathname, context)
-	// 	console.log({rel});
-	// 	const contextualStack = rewriteStack.forEach(pathname => `${context}${pathname}`)
-	// 	const sanitized = removeDupeSlashes(contextualStack)
-	// 	return sanitized
-	// }
-
-	const sanitized = removeDupeSlashes(rewriteStack)
-	return sanitized
-}
-
+	])
 
 const getStat = (location) => {
     let stat
@@ -56,25 +37,17 @@ const getStat = (location) => {
 
 const stripStartSlash = str => str[0] === '/' ? str.slice(1) : str
 
-
-const rewrite = (pathname, extension, context) => {
-    // const requestPath = stripStartSlash(pathname)
-    const rewrites = extension ? removeDupeSlashes([pathname]) : rewritePaths(pathname, context)
-
-	console.log({pathname, context, extension, rewrites})
+const rewrite = (pathname, extension) => {
+    const rewrites = extension ? removeDoubleSlashes([pathname]) : rewritePaths(pathname)
 
 	for (const rewrite of rewrites) {
         const rewriteTarget  = stripStartSlash(rewrite)
 		const location = path.resolve('./web', rewriteTarget)
 
-		console.log({location})
-
         const stat = getStat(location)
         const {ext} = path.parse(rewriteTarget, true)
         const contentType = headers[ext]
 		
-		// console.log({location, stat, contentType})
-
 		if (stat) {
             return {location, stat, contentType}
 		}
@@ -96,28 +69,20 @@ const CouldNotStream = (req, res) => {
 }
 
 const requestHandler = (req, res) => {
+    console.log(`REQUEST: ${req.url}`)
 
 	const {pathname} = url.parse(req.url)
 	const {ext} = path.parse(pathname)
-	
 	const {referer} = req.headers 
-	const context = referer ? url.parse(referer).pathname.slice(1) : '/'
 
-	console.log({pathname, context, url: req.url, ref: req.headers.referer})
-
-    const file = rewrite(pathname, ext, context)
-
-	console.log({file})
+    const file = rewrite(pathname, ext)
 
     if (!file) {
         return NotFound404(req, res)
     }
 
-	console.log({pathname: pathname, rel: path.relative(WEB_DIR, file.location)})
-	if (pathname.slice(1) !==  path.relative(WEB_DIR, file.location)) {
+	if (pathname.slice(-1) !== '/' && pathname.slice(1) !== path.relative(WEB_DIR, file.location)) {
 		const rel =  path.relative(WEB_DIR, file.location);
-		console.log({rel});
-		// console.log(file.location)
 		res.writeHead(301, {
 			Location: `http://localhost:${PORT}/${rel}`
 		})
@@ -126,8 +91,7 @@ const requestHandler = (req, res) => {
 		return
 	}
 
-    console.log(`REQUEST: ${pathname}`)
-	console.log(`SERVING: ${file.location}`)
+	console.log(`SERVING: ./${path.relative(path.resolve(WEB_DIR, '../'),  file.location)}`)
     
 	res.writeHead(200, {
 		'Content-Type': file.contentType,
