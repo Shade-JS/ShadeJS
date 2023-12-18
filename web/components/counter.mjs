@@ -1,4 +1,4 @@
-import Shade, {css, html} from '/vendor/Shade'
+import Shade, {css, html} from '/vendor/Shade/index.mjs'
 
 class MyCounter extends HTMLElement {
     title = 'My Awesome Counter'

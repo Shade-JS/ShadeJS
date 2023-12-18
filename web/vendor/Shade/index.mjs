@@ -1,6 +1,6 @@
-import html from './lib/html' 
-import css from './lib/css' 
-import shade from './lib/shade' 
+import html from './lib/html.mjs' 
+import css from './lib/css.mjs' 
+import shade from './lib/shade.mjs' 
 
 export {html, css}
 
