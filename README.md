@@ -1,6 +1,4 @@
-<center>
-    <img width="555px" src="docs/images/shadejs-logo-tiny.png">
-</center>
+<center><img width="555px" src="docs/images/shadejs-logo-tiny.png"></center>
 
 # ShadeJS  🌴
 
