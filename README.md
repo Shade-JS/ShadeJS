@@ -1,4 +1,4 @@
-<center><img width="555px" src="docs/images/shadejs-logo-tiny.png"></center>
+<p align="center"><img width="555px" src="docs/images/shadejs-logo-tiny.png" alt="ShadeJS - Web Development The East Way/></p>
 
 # ShadeJS  🌴
 
