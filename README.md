@@ -1,16 +1,23 @@
-<center>![Shade JS Palm Tree Graphic](docs/images/shadejs-logo-micro.png)</center>
+<center>
+    <img width="555px" src="docs/images/shadejs-logo-tiny.png">
+</center>
 
 # ShadeJS  🌴
 
-> Modular JavaScript SPA framework built on closed-shadow Web Components.
+
+> Web Development - _The Easy Way_
+
 
 ## Follow The Series
 
-- [Part 1 - Concept](https://dev.to/f1lt3r/build-a-spa-framework-1-4jld)
-- [Part 2 - Server](https://dev.to/f1lt3r/build-a-spa-framework-1-4jld)
+ShadeJS is a blog post series on developing a **SPA Framework built on Modular JavaScript, NodeJS and Closed-Shadow Web Components**.
 
 
-## Simple ShadeJS Component 
+- [Part 1 - Burn It All Down!](https://dev.to/f1lt3r/build-a-spa-framework-1-4jld) &mdash; What I hate about Web Dev and what to do about it.
+- [Part 2 - The Magic HTTP Server](https://dev.to/f1lt3r/build-a-spa-framework-1-4jld) &mdash; A server that allows extension-less file imports.
+
+
+## Basic ShadeJS Component 
 
 ```javascript
 import Shade, {css, html} from '/vendor/Shade'
