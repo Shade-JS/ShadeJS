@@ -1,4 +1,4 @@
-![Shade JS Palm Tree Graphic](docs/images/shadejs-logo-tny.png)
+![Shade JS Palm Tree Graphic](docs/images/shadejs-logo-micro.png)
 
 # ShadeJS  🌴
 
