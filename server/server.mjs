@@ -1,4 +1,3 @@
-
 import http from 'node:http'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -61,12 +60,24 @@ const NotFound404 = (req, res) => {
 	res.end()
 }
 
-const CouldNotStream = (req, res) => {
+const CouldNotStream500 = (req, res) => {
     res.writeHead(500, {'Content-Type': 'text/plain'})
     console.error(`505: ${req.url}`)
     res.write('500 Internal Server Error')
     res.end()
 }
+
+const MovedPermanently301 = (res, location) => {
+	res.writeHead(301, {
+		Location: `http://localhost:${PORT}/${location}`
+	})
+	res.write('301 Moved Permanently')
+	res.end()
+}
+
+const hasNoEndSlash = (url) => url.slice(-1) !== '/'
+
+const wasRewritten = (url, location) => url.slice(1) !== path.relative(WEB_DIR, location)
 
 const requestHandler = (req, res) => {
     console.log(`REQUEST: ${req.url}`)
@@ -81,14 +92,9 @@ const requestHandler = (req, res) => {
         return NotFound404(req, res)
     }
 
-	if (pathname.slice(-1) !== '/' && pathname.slice(1) !== path.relative(WEB_DIR, file.location)) {
-		const rel =  path.relative(WEB_DIR, file.location);
-		res.writeHead(301, {
-			Location: `http://localhost:${PORT}/${rel}`
-		})
-		res.write('301 Moved Permanently')
-		res.end()
-		return
+	if (hasNoEndSlash(pathname) && wasRewritten(pathname, file.location)) {
+		const relativeLocation =  path.relative(WEB_DIR, file.location)
+		return MovedPermanently301(res, relativeLocation)
 	}
 
 	console.log(`SERVING: ./${path.relative(path.resolve(WEB_DIR, '../'),  file.location)}`)
