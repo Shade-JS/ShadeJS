@@ -1,0 +1,13 @@
+{
+    "cSpell.words": [
+        "parens",
+        "shadejs"
+    ],
+    "editor.codeActionsOnSave": {
+        "source.formatDocument": "explicit",
+        "source.fixAll.eslint": "explicit",
+    },
+    "eslint.validate": [
+        "javascript"
+    ]
+}
