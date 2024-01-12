@@ -4,6 +4,7 @@
 	"description": " Modular JavaScript SPA framework built on closed-shadow Web Components",
 	"type": "module",
 	"scripts": {
+		"start": "node --loader ./lib/loader.mjs ./server/server.mjs",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"keywords": [
