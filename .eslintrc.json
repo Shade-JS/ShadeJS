@@ -11,7 +11,13 @@
 		"sourceType": "module"
 	},
 	"rules": {
-		"prettier/prettier": 2
+		"prettier/prettier": 2,
+		"capitalized-comments": [
+			"error",
+			"always",
+			{
+				"ignorePattern": "*"
+			}
+		]
 	}
 }
-

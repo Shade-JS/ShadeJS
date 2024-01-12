@@ -1,5 +1,8 @@
 import shade, {css, html} from '../vendor/Shade'
 
+console.log('inside counter.mjs')
+console.log(HTMLElement)
+
 class MyCounter extends HTMLElement {
 	title = 'My Awesome Counter'
 	count = 0
@@ -38,3 +41,5 @@ class MyCounter extends HTMLElement {
 }
 
 window.customElements.define('my-counter', MyCounter)
+
+export default MyCounter

@@ -3,61 +3,11 @@ import fs from 'node:fs'
 import path from 'node:path'
 import url from 'node:url'
 
+import rewrite from '../lib/rewrites.mjs'
+
 const BASE_URL = 'localhost'
 const PORT = 3000
 const WEB_DIR = './web'
-
-const headers = {
-	'.html': 'text/html',
-	'.mjs': 'application/javascript',
-	'.css': 'text/css',
-}
-
-const removeDoubleSlashes = (url) => url.map((url) => url.replace(/(^\/)\/+/g, '$1'))
-
-const rewritePaths = (pathname) =>
-	removeDoubleSlashes([
-		`${pathname}/index.html`,
-		`${pathname}.html`,
-		`${pathname}.mjs`,
-		`${pathname}/index.mjs`,
-		`${pathname}.css`,
-		`${pathname}/index.css`,
-	])
-
-const getStat = (location) => {
-	let stat
-	try {
-		stat = fs.statSync(location)
-	} catch (error) {
-		console.warn(`ERROR: ${error})`)
-	}
-
-	return stat
-}
-
-const stripStartSlash = (str) => (str[0] === '/' ? str.slice(1) : str)
-
-const rewrite = (pathname, extension) => {
-	const rewrites = extension ? removeDoubleSlashes([pathname]) : rewritePaths(pathname)
-
-	for (const rewrite of rewrites) {
-		const rewriteTarget = stripStartSlash(rewrite)
-		const location = path.resolve('./web', rewriteTarget)
-
-		const stat = getStat(location)
-		const { ext } = path.parse(rewriteTarget, true)
-		const contentType = headers[ext]
-
-		if (stat) {
-			return {
-				location,
-				stat,
-				contentType,
-			}
-		}
-	}
-}
 
 const notFound404 = (req, res) => {
 	res.writeHead(404, {
@@ -92,10 +42,10 @@ const wasRewritten = (url, location) => url.slice(1) !== path.relative(WEB_DIR, 
 const requestHandler = (req, res) => {
 	console.log(`REQUEST: ${req.url}`)
 
-	const { pathname } = url.parse(req.url)
-	const { ext } = path.parse(pathname)
+	const {pathname} = url.parse(req.url)
+	const {ext} = path.parse(pathname)
 
-	const file = rewrite(pathname, ext)
+	const file = rewrite(pathname, './web', ext)
 
 	if (!file) {
 		return notFound404(req, res)

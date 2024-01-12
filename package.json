@@ -1,25 +1,26 @@
 {
-  "name": "@shadejs/shadejs",
-  "version": "0.1.0",
-  "description": " Modular JavaScript SPA framework built on closed-shadow Web Components",
-  "main": "index.mjs",
-  "type": "module",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "spa",
-    "framework",
-    "web components",
-    "modular",
-    "javascript"
-  ],
-  "author": "F1L3R",
-  "license": "ISC",
-  "devDependencies": {
-    "eslint": "^8.56.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.1.3",
-    "xo": "^0.56.0"
-  }
+	"name": "@shadejs/shadejs",
+	"version": "0.1.0",
+	"description": " Modular JavaScript SPA framework built on closed-shadow Web Components",
+	"type": "module",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [
+		"spa",
+		"framework",
+		"web components",
+		"modular",
+		"javascript"
+	],
+	"author": "F1L3R",
+	"license": "ISC",
+	"devDependencies": {
+		"ava": "^6.0.1",
+		"eslint": "^8.56.0",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-prettier": "^5.1.3",
+		"prettier": "^3.1.1",
+		"xo": "^0.56.0"
+	}
 }
