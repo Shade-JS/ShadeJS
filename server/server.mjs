@@ -3,7 +3,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import url from 'node:url'
 
-import rewrite from '../lib/rewrites'
+import rewrite from '/lib/rewrites'
 
 const BASE_URL = 'localhost'
 const PORT = 3000

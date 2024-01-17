@@ -1,8 +1,11 @@
-import test from 'ava'
+import test from 'node:test'
+import assert from 'node:assert'
 
-// Const MyCounter = await import('./counter.mjs')
-import MyCounter from './counter.mjs'
+import Counter from './counter'
 
-test('Has render function', (t) => {
-	t.is(typeof MyCounter.render, 'function')
+test('Counter tests', (t) => {
+	test('has template function', (t) => {
+		const counter = new Counter()
+		assert.strictEqual(typeof counter.template, 'function')
+	})
 })
